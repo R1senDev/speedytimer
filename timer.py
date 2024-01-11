@@ -4,9 +4,15 @@ from time      import time
 import pyglet
 
 
+config = {
+    'transparency': False
+}
+
+
 # Важные константы
 X_OFFSET = 5
 Y_OFFSET = 5
+RGBA_BG  = (0, 0, 0, 204 if config['transparency'] else 255)
 RGBA_GREEN  = (0, 255, 0, 255)
 RGBA_CYAN   = (0, 255, 255, 255)
 RGBA_E64C0C = (230, 76, 12, 255)
@@ -26,6 +32,17 @@ window = pyglet.window.Window(
     style = 'overlay'
 )
 
+
+batch = pyglet.graphics.Batch()
+# Квадрат заднего фона
+bg_rect = pyglet.shapes.Rectangle(
+    x = 0,
+    y = 0,
+    width = window.width,
+    height = window.height,
+    color = RGBA_BG,
+    batch = batch
+)
 # Текст на таймере
 timer_text = pyglet.text.Label(
     text = '=> Пробел <=',
@@ -35,7 +52,8 @@ timer_text = pyglet.text.Label(
     x = window.width // 2,
     y = window.height // 2,
     anchor_x = 'center',
-    anchor_y = 'center'
+    anchor_y = 'center',
+    batch = batch
 )
 
 
@@ -68,7 +86,8 @@ def on_draw():
         m, s = divmod(elapsed, 60)
         h, m = divmod(m, 60)
         timer_text.text = f'{str(round(h)).zfill(2)}:{str(round(m)).zfill(2)}:{str(strict_round(s, 3)).zfill(6)}'
-    timer_text.draw()
+
+    batch.draw()
 
 
 # Обработчик нажатий клавиш клавиатуры
