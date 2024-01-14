@@ -94,8 +94,11 @@ def on_draw():
 @window.event
 def on_key_press(keyid, mod):
     print('on_key_press', keyid, mod, sep = '\t')
+    global elapsed
 
-    if keyid == 32 and (mod == 18 or elapsed == 0):
+    # Space or Ctrl + Space - start
+    # Ctrl + Space - stop or continue
+    if keyid == 32 and (mod in [18, 258] or elapsed == 0):
             global running, last_checkout
 
             running = not running
@@ -107,6 +110,14 @@ def on_key_press(keyid, mod):
             else:
                 timer_text.color = RGBA_CYAN
                 player.pause()
+
+    # Ctrl + r - refresh
+    if keyid == 114 and mod in [18, 258]:
+        timer_text.text = '00:00:00.000'
+        elapsed = 0
+        running = False
+        timer_text.color = RGBA_GREEN
+        player.pause()
 
 
 # Телепортирует окно на противоположный край экрана
