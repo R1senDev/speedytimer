@@ -118,10 +118,7 @@ def on_key_press(keyid, mod):
         running = False
         timer_text.color = RGBA_GREEN
         player.pause()
-
-    # Ctrl + E - exit
-    if keyid == 101 and mod in [18, 258]:
-        pyglet.app.exit()
+        
 
 # Телепортирует окно на противоположный край экрана
 def swap_side():
