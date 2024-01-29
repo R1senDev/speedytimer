@@ -13,7 +13,6 @@ SpeedyTimer is a lightweight Python-based timer for speedrunners.
 
 - [Python](https://python.org/) 3.8 or newer;
 - [Pyglet](https://github.com/pyglet/pyglet) - cross-platform windowing and multimedia library for Python;
-- [PyAutoGUI](https://github.com/asweigart/pyautogui) - cross-platform GUI automation Python module for human beings.
 
 ## Installation
 
