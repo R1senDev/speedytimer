@@ -1,7 +1,15 @@
-from pyautogui import position as mouse_position
-from time      import time
+from ctypes.wintypes import POINT
+from ctypes          import windll, byref
+from time            import time
+
 
 import pyglet
+
+
+def mouse_position():
+    cursor = POINT()
+    windll.user32.GetCursorPos(byref(cursor))
+    return (int(cursor.x), int(cursor.y))
 
 
 config = {
