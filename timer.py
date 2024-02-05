@@ -12,6 +12,14 @@ def mouse_position():
     return (int(cursor.x), int(cursor.y))
 
 
+def get_player():
+    player = pyglet.media.Player()
+    player.loop = True
+    media_source = pyglet.media.load('data/music.mp3')
+    player.queue(media_source)
+    return player
+
+
 config = {
     'transparency': False
 }
@@ -69,10 +77,7 @@ window.set_location(X_OFFSET, Y_OFFSET)
 
 
 # Настройка воспроизведения звука
-player = pyglet.media.Player()
-player.loop = True
-media_source = pyglet.media.load('data/music.mp3')
-player.queue(media_source)
+player = get_player()
 
 
 @window.event
@@ -102,7 +107,7 @@ def on_draw():
 @window.event
 def on_key_press(keyid, mod):
     print('on_key_press', keyid, mod, sep = '\t')
-    global elapsed
+    global elapsed, player
 
     # Space or Ctrl + Space - start
     # Ctrl + Space - stop or continue
@@ -126,6 +131,8 @@ def on_key_press(keyid, mod):
         running = False
         timer_text.color = RGBA_GREEN
         player.pause()
+        player.delete()
+        player = get_player()
         
 
 # Телепортирует окно на противоположный край экрана
